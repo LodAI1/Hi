@@ -1,42 +1,5 @@
-import SwiftUI
 
-struct PsychedelicView: View {
-    @State private var animate = false
-
-    var body: some View {
-        ZStack {
-            ForEach(0..<50, id: \.self) { index in
-                GeometryReader { geometry in
-                    Circle()
-                        .fill(Color(hue: Double.random(in: 0...1), saturation: 1, brightness: 1, opacity: 0.7))
-                        .offset(x: self.randomCoordinate(max: geometry.size.width),
-                                y: self.randomCoordinate(max: geometry.size.height))
-                        .scaleEffect(self.animate ? 0 : 3)
-                        .rotationEffect(.degrees(self.animate ? 360 : 0))
-                }
-                .frame(width: 100, height: 100, alignment: .center)
-                .animation(Animation.easeOut(duration: Double.random(in: 1...5)).repeatForever(autoreverses: false).delay(Double(index) / 50))
-            }
-        }
-        .background(Color.black)
-        .edgesIgnoringSafeArea(.all)
-        .onAppear {
-            self.animate = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-                exit(0) // Close the app after 20 seconds
-            }
-        }
-    }
-
-    private func randomCoordinate(max: CGFloat) -> CGFloat {
-        return CGFloat.random(in: -max...max)
-    }
-}
-
-@main
-struct PsychedelicApp: App {
-    var body: some Scene {
-        WindowGroup {
+        .
             PsychedelicView()
         }
     }
